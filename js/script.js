@@ -32,6 +32,8 @@ function renderCart() {
   const totalContainer = document.getElementById('cart-total');
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+  if (!cartContainer) return;
+
   cartContainer.innerHTML = '';
   let total = 0;
 
@@ -49,17 +51,17 @@ function renderCart() {
     row.classList.add('cart-item');
     row.innerHTML = `
       <strong>${item.name} (${item.weight}g)</strong><br/>
-      ₹${item.price} x 
+      ₹${item.price.toFixed(2)} x 
       <button class="qty-btn" data-index="${index}" data-action="decrease">-</button>
       ${item.quantity}
       <button class="qty-btn" data-index="${index}" data-action="increase">+</button> =
-      ₹${itemTotal}
+      ₹${itemTotal.toFixed(2)}
       <button class="remove-btn" data-index="${index}">Remove</button>
     `;
     cartContainer.appendChild(row);
   });
 
-  totalContainer.textContent = `Total: ₹${total}`;
+  totalContainer.textContent = `Total: ₹${total.toFixed(2)}`;
 }
 
 // Handle quantity adjustments and removal
@@ -70,6 +72,10 @@ function attachCartEvents() {
     if (e.target.classList.contains('remove-btn')) {
       const index = e.target.getAttribute('data-index');
       cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+      return;
     }
 
     if (e.target.classList.contains('qty-btn')) {
@@ -80,45 +86,26 @@ function attachCartEvents() {
       } else if (action === 'decrease' && cart[index].quantity > 1) {
         cart[index].quantity -= 1;
       }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+      return;
     }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    renderCart();
   });
-}
-
-// Place Order logic
-function handleCheckout() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  if (cart.length === 0) {
-    alert("Your cart is empty.");
-    return;
-  }
-
-  // Simple checkout example
-  alert("Thank you! Your order has been placed.");
-  localStorage.removeItem('cart');
-  updateCartCount();
-  renderCart();
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   updateCartCount();
 
+  // If we are on cart page
   const cartItems = document.getElementById('cart-items');
   if (cartItems) {
     renderCart();
     attachCartEvents();
   }
 
-  const checkoutBtn = document.getElementById('checkout-btn');
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', handleCheckout);
-  }
-
-  // Add to Cart logic for product cards
+  // Add to Cart logic for product cards (on index.html)
   const buttons = document.querySelectorAll('.add-to-cart-btn');
   buttons.forEach(button => {
     button.addEventListener('click', (event) => {
@@ -139,4 +126,17 @@ document.addEventListener('DOMContentLoaded', () => {
       addToCart(product);
     });
   });
+
+  // Handle checkout button on cart page - redirect to place-order.html
+  const checkoutBtn = document.getElementById('checkout-btn');
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', (e) => {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        e.preventDefault();
+        alert("Your cart is empty.");
+      }
+      // Otherwise proceed to place-order.html via link href
+    });
+  }
 });
