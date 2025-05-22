@@ -1,4 +1,4 @@
-/* Base styles */
+/* Base styles (keep your existing base styles here) */
 body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
@@ -67,7 +67,7 @@ h2 {
   color: #8B4000;
 }
 
-.products, .testimonials {
+.products {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -129,62 +129,84 @@ iframe {
   height: 100%;
 }
 
-/* ===== Floating small testimonials panel ===== */
+/* ====== Testimonials horizontal scroll styling ====== */
 
 #testimonials {
-  position: fixed;       /* fixed position relative to viewport */
-  bottom: 20px;          /* 20px from bottom */
-  right: 20px;           /* 20px from right */
-  width: 300px;          /* fixed width */
-  max-height: 400px;     /* max height */
-  background: #fef9f0;   /* light warm background */
-  border: 2px solid #8B4000;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  padding: 15px;
-  overflow-y: auto;      /* scroll if content too tall */
-  z-index: 1000;         /* on top */
+  padding: 40px 20px;
+  background-color: #fffaf5;
+  border-top: 3px solid #8B4000;
 }
 
 #testimonials h2 {
-  font-size: 1.2rem;
-  margin-top: 0;
-  color: #8B4000;
   font-family: 'Playfair Display', serif;
+  color: #8B4000;
   text-align: center;
+  margin-bottom: 25px;
+  font-size: 2rem;
 }
 
+/* Container for scrolling */
 #testimonials .testimonials {
-  display: block;       /* stack cards vertically */
-  gap: 10px;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #8B4000 transparent;
 }
 
+/* Hide scrollbar for Webkit */
+#testimonials .testimonials::-webkit-scrollbar {
+  height: 8px;
+}
+
+#testimonials .testimonials::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#testimonials .testimonials::-webkit-scrollbar-thumb {
+  background-color: #8B4000;
+  border-radius: 4px;
+}
+
+/* Each testimonial card */
 #testimonials .card {
-  background: #fff;
-  padding: 10px 15px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  font-size: 0.85rem;
-  color: #444;
+  flex: 0 0 300px; /* fixed width cards */
+  background: #f4f4f4;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   text-align: left;
-  line-height: 1.4;
+  font-size: 0.9rem;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 150px;
+  box-sizing: border-box;
+}
+
+#testimonials .card p {
+  margin: 0 0 10px 0;
+  font-style: italic;
 }
 
 #testimonials .card strong {
-  display: block;
-  margin-top: 6px;
-  font-weight: 700;
   color: #8B4000;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: auto;
 }
 
-/* Scrollbar styling for testimonials panel */
-#testimonials::-webkit-scrollbar {
-  width: 6px;
+/* Optional: Add smooth auto scroll animation - uncomment if you want automatic scrolling */
+/*
+@keyframes scroll-testimonials {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-#testimonials::-webkit-scrollbar-thumb {
-  background-color: #8B4000;
-  border-radius: 3px;
+#testimonials .testimonials {
+  animation: scroll-testimonials 30s linear infinite;
 }
+*/
