@@ -92,7 +92,8 @@ h2 {
   border-radius: 8px;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
@@ -129,7 +130,8 @@ iframe {
   height: 100%;
 }
 
-/* ===== Testimonials Section ===== */
+/* ====== Testimonials horizontal scroll styling ====== */
+
 #testimonials {
   padding: 40px 20px;
   background-color: #fffaf5;
@@ -144,28 +146,32 @@ iframe {
   font-size: 2rem;
 }
 
-/* Container with horizontal scrolling and animation */
+/* Container for scrolling */
 #testimonials .testimonials {
   display: flex;
   gap: 20px;
-  overflow-x: hidden; /* hide scrollbar */
-  padding-bottom: 10px;
-  scrollbar-width: none; /* hide scrollbar Firefox */
-  -ms-overflow-style: none; /* hide scrollbar IE 10+ */
+  overflow-x: hidden; /* Hide scrollbar */
   animation: scroll-testimonials 30s linear infinite;
+  will-change: transform;
 }
 
-#testimonials .testimonials::-webkit-scrollbar {
-  display: none; /* hide scrollbar Chrome, Safari */
+/* Scroll testimonials from right to left infinitely */
+@keyframes scroll-testimonials {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Each testimonial card */
 #testimonials .card {
-  flex: 0 0 300px;
+  flex: 0 0 300px; /* fixed width cards */
   background: #f4f4f4;
   padding: 15px 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
   font-size: 0.9rem;
   color: #444;
@@ -177,4 +183,13 @@ iframe {
 }
 
 #testimonials .card p {
-  margin: 
+  margin: 0 0 10px 0;
+  font-style: italic;
+}
+
+#testimonials .card strong {
+  color: #8B4000;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: auto;
+}
