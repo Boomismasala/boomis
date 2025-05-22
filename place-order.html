@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Place Order - Boomis Homemade Masala</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <a href="index.html" id="back-button">← Back to Shop</a>
+  <h1>Place Your Order</h1>
+</header>
+
+<section id="order-summary">
+  <h2>Your Cart Summary</h2>
+  <div id="cart-items"></div>
+  <p id="total-price"></p>
+</section>
+
+<section id="shipping-info">
+  <h2>Shipping Information</h2>
+  <form id="order-form">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="email" id="email" placeholder="Your Email" required />
+    <textarea id="address" placeholder="Your Shipping Address" rows="4" required></textarea>
+    <button type="submit">Place Order</button>
+  </form>
+</section>
+
+<script>
+  // Load cart from localStorage and display in #cart-items
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartItemsContainer = document.getElementById('cart-items');
+  const totalPriceElem = document.getElementById('total-price');
+
+  function renderCart() {
+    if(cart.length === 0) {
+      cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+      totalPriceElem.textContent = '';
+      return;
+    }
+    let total = 0;
+    cartItemsContainer.innerHTML = '';
+    cart.forEach(item => {
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+      const div = document.createElement('div');
+      div.textContent = `${item.name} (${item.weight}g) x ${item.quantity} = ₹${itemTotal}`;
+      cartItemsContainer.appendChild(div);
+    });
+    totalPriceElem.textContent = `Total Price: ₹${total}`;
+  }
+
+  renderCart();
+
+  // Handle form submission
+  document.getElementById('order-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if(cart.length === 0) {
+      alert('Your cart is empty!');
+      return;
+    }
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const address = document.getElementById('address').value.trim();
+
+    if(!name || !email || !address) {
+      alert('Please fill all the required fields.');
+      return;
+    }
+
+    // Here you can send the order to your backend or API
+    alert(`Thank you, ${name}! Your order has been placed.`);
+
+    // Clear cart after order placed
+    localStorage.removeItem('cart');
+    window.location.href = 'index.html'; // Redirect back to shop
+  });
+</script>
+
+<style>
+  #back-button {
+    display: inline-block;
+    margin: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #8B4000;
+  }
+  #back-button:hover {
+    text-decoration: underline;
+  }
+  body {
+    font-family: 'Open Sans', sans-serif;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  #order-summary div {
+    margin: 5px 0;
+  }
+  #total-price {
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  form input, form textarea, form button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    font-size: 1em;
+  }
+  form button {
+    background-color: #8B4000;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  form button:hover {
+    background-color: #a05200;
+  }
+</style>
+
+</body>
+</html>
