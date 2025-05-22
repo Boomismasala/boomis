@@ -2,225 +2,168 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Boomi's Homemade Masala</title>
-
-  <!-- Google Fonts -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boomi's Masala Order</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
   <style>
     body {
       font-family: 'Open Sans', sans-serif;
       margin: 0;
       padding: 0;
-      line-height: 1.6;
-      color: #333;
       background-color: #fffaf5;
+      color: #333;
     }
 
     header {
-      background: #8B4000;
-      color: #fff;
-      padding: 20px 0;
+      background-color: #8B4000;
+      color: white;
       text-align: center;
+      padding: 1rem 0;
     }
 
-    .brand-title {
+    header h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 3em;
       margin: 0;
     }
 
-    .subtitle {
-      font-size: 1em;
-      color: #ffdd99;
-      margin-top: -10px;
-      letter-spacing: 1px;
-    }
-
-    nav {
-      margin-top: 10px;
-    }
-
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .hero {
-      background: url('Background.png') no-repeat center center/cover;
-      height: 400px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 3em;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 10px 20px;
-      font-family: 'Playfair Display', serif;
-    }
-
-    section {
-      padding: 40px 20px;
+    .container {
       max-width: 1000px;
-      margin: auto;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
 
-    h2 {
-      font-family: 'Playfair Display', serif;
-      color: #8B4000;
-    }
-
-    .products, .testimonials {
+    .product {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .card {
-      flex: 1 1 300px;
-      background: #f4f4f4;
-      padding: 20px;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      text-align: center;
-      box-sizing: border-box;
+      background-color: #f4f4f4;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
     }
 
-    .card img {
-      width: 100%;
-      height: 200px;
+    .product img {
+      width: 100px;
+      height: 100px;
       object-fit: cover;
       border-radius: 8px;
     }
 
-    form input, form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+    .product-details {
+      flex: 1;
+      margin-left: 1rem;
     }
 
-    form button {
-      background: #8B4000;
-      color: #fff;
+    .product h3 {
+      margin: 0 0 0.5rem 0;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #8B4000;
+      color: white;
       border: none;
-      padding: 10px 20px;
-      margin-top: 10px;
       border-radius: 5px;
       cursor: pointer;
     }
 
-    footer {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 15px 0;
-      font-size: 0.9em;
+    .cart {
+      background-color: #fff0e1;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 2rem;
     }
 
-    .map-container {
-      margin-top: 20px;
-      height: 300px;
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
     }
 
-    iframe {
-      border: 0;
-      width: 100%;
-      height: 100%;
+    .cart-total {
+      font-weight: bold;
+      text-align: right;
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Boomi's Homemade Masala - Order Online</h1>
+  </header>
 
-<header>
-  <div class="brand-title">Boomis</div>
-  <div class="subtitle">Homemade Masala</div>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#products">Products</a>
-    <a href="#testimonials">Testimonials</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <h1> Where flavour takes flight !</h1>
-</section>
-
-<section id="about">
-  <h2>About Us</h2>
-  <p>At Boomis Homemade Masala, we bring you age-old recipes packed with the freshest handpicked spices. Our masalas are ground with love, ensuring authentic flavors that enhance your meals.</p>
-</section>
-
-<section id="products">
-  <h2>Our Products</h2>
-  <div class="products">
-    <div class="card">
-      <img src="Sambar-Powder.png" alt="Sambar Powder"/>
-      <h3>Sambar Powder</h3>
-      <p>A perfect blend for traditional South Indian Sambar.</p>
+  <div class="container">
+    <div class="product">
+      <img src="Sambar-Powder.png" alt="Sambar Powder">
+      <div class="product-details">
+        <h3>Sambar Powder</h3>
+        <p>Rs. 100</p>
+      </div>
+      <button onclick="addToCart('Sambar Powder', 100)">Add to Cart</button>
     </div>
-    <div class="card">
-      <img src="Chill-Powder.png" alt="Chilly Powder"/>
-      <h3>Chilly Powder</h3>
-      <p>Perfect for spicy and flavorful recipes.</p>
-    </div>
-    <div class="card">
-      <img src="Idly-Powder.jpg" alt="Idly Podi"/>
-      <h3>Idly Podi</h3>
-      <p>Aromatic blend used with idly and dosa. Rich and authentic.</p>
-    </div>
-  </div>
-</section>
 
-<section id="testimonials">
-  <h2>What Our Customers Say</h2>
-  <div class="testimonials">
-    <div class="card">
-      <p>"Boomis masalas have transformed my cooking. The aroma is just divine!"</p>
-      <strong>– Meena R.</strong>
+    <div class="product">
+      <img src="Chill-Powder.png" alt="Chilli Powder">
+      <div class="product-details">
+        <h3>Chilli Powder</h3>
+        <p>Rs. 90</p>
+      </div>
+      <button onclick="addToCart('Chilli Powder', 90)">Add to Cart</button>
     </div>
-    <div class="card">
-      <p>"Authentic taste and no preservatives. Highly recommend!"</p>
-      <strong>– Arjun V.</strong>
+
+    <div class="product">
+      <img src="Idly-Powder.jpg" alt="Idly Podi">
+      <div class="product-details">
+        <h3>Idly Podi</h3>
+        <p>Rs. 80</p>
+      </div>
+      <button onclick="addToCart('Idly Podi', 80)">Add to Cart</button>
+    </div>
+
+    <div class="cart">
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+      <div class="cart-total" id="cart-total">Total: Rs. 0</div>
+      <button onclick="checkout()">Place Order</button>
     </div>
   </div>
-</section>
 
-<section id="contact">
-  <h2>Contact Us</h2>
-  <form>
-    <input type="text" placeholder="Your Name" required />
-    <input type="email" placeholder="Your Email" required />
-    <textarea rows="5" placeholder="Your Message"></textarea>
-    <button type="submit">Send</button>
-  </form>
+  <script>
+    let cart = [];
 
-  <h2>Our Location</h2>
-  <p>Palakkad, Kerala, India</p>
-  <p>Email ID - help@boomis.in</p>
-  <div class="map-container">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15677.013942941927!2d76.62946324009178!3d10.791887408048394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba86e0233221569%3A0x853df44a33499288!2sChunnambuthara%2C%20Vadakkanthara%2C%20Palakkad%2C%20Kerala!5e0!3m2!1sen!2sin!4v1747915746829!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-      allowfullscreen=""
-      loading="lazy">
-    </iframe>
-  </div>
-</section>
+    function addToCart(product, price) {
+      cart.push({ product, price });
+      updateCart();
+    }
 
-<footer>
-  <p>&copy; 2025 Boomis Homemade Masala. All rights reserved.</p>
-</footer>
+    function updateCart() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      cartItems.innerHTML = '';
 
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.textContent = `${item.product} - Rs. ${item.price}`;
+        cartItems.appendChild(div);
+      });
+
+      cartTotal.textContent = `Total: Rs. ${total}`;
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+
+      const orderDetails = cart.map(item => `${item.product} - Rs. ${item.price}`).join('\n');
+      alert('Thank you for your order!\n\n' + orderDetails);
+      cart = [];
+      updateCart();
+    }
+  </script>
 </body>
 </html>
