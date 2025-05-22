@@ -3,183 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cart & Order - Boomis Masala</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <title>Your Cart - Boomis Homemade Masala</title>
+  <link rel="stylesheet" href="css/style.css" />
   <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      max-width: 700px;
+    .cart-container {
+      max-width: 800px;
       margin: 40px auto;
       padding: 20px;
       background: #fffaf5;
-      color: #333;
-    }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      color: #8B4000;
-      margin-bottom: 25px;
-      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 10px;
     }
     .cart-item {
-      background: #f4f4f4;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 8px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
     }
-    .cart-item > div {
-      flex: 1;
+    .cart-item:last-child {
+      border-bottom: none;
     }
-    .cart-item .qty {
-      width: 50px;
+    .cart-item strong {
+      color: #8B4000;
     }
-    #total {
-      font-weight: bold;
+    .total {
       text-align: right;
-      margin-top: 15px;
-      font-size: 1.2em;
-    }
-    form label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    form input, form textarea, form button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-    form button {
-      background: #8B4000;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
+      font-size: 1.2rem;
       margin-top: 20px;
+      font-weight: bold;
     }
-    form button:hover {
-      background: #a05200;
-    }
-    #empty-msg {
-      text-align: center;
-      font-style: italic;
-      margin-top: 30px;
+    .checkout-btn {
+      margin-top: 20px;
+      background: #8B4000;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      float: right;
     }
   </style>
 </head>
 <body>
 
-<h1>Your Cart & Order</h1>
-
-<div id="cart-container"></div>
-<div id="total"></div>
-
-<form id="order-form">
-  <label for="name">Full Name *</label>
-  <input type="text" id="name" name="name" required />
-
-  <label for="email">Email *</label>
-  <input type="email" id="email" name="email" required />
-
-  <label for="address">Delivery Address *</label>
-  <textarea id="address" name="address" rows="4" required></textarea>
-
-  <button type="submit">Place Order</button>
-</form>
-
-<div id="order-success" style="display:none; margin-top: 20px; color: green; font-weight: bold;">
-  Thank you! Your order has been placed successfully.
+<div class="cart-container">
+  <h1>Your Cart</h1>
+  <div id="cart-items"></div>
+  <div class="total" id="cart-total">Total: ₹0</div>
+  <button class="checkout-btn">Place Order</button>
 </div>
 
 <script>
-  const cartContainer = document.getElementById('cart-container');
-  const totalDiv = document.getElementById('total');
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
   function renderCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartContainer = document.getElementById('cart-items');
+    const totalContainer = document.getElementById('cart-total');
+    cartContainer.innerHTML = '';
+    let total = 0;
+
     if (cart.length === 0) {
-      cartContainer.innerHTML = '<p id="empty-msg">Your cart is empty. <a href="index.html">Go shopping</a></p>';
-      totalDiv.textContent = '';
-      document.getElementById('order-form').style.display = 'none';
+      cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+      totalContainer.textContent = 'Total: ₹0';
       return;
     }
 
-    document.getElementById('order-form').style.display = 'block';
-
-    cartContainer.innerHTML = cart.map(item => `
-      <div class="cart-item">
-        <div><strong>${item.name}</strong> (${item.weight})</div>
-        <div>₹${item.price}</div>
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
         <div>
-          Qty: <input type="number" min="1" value="${item.quantity}" data-id="${item.id}" class="qty-input" />
+          <strong>${item.name}</strong> - ${item.weight} x ${item.quantity}
         </div>
         <div>₹${item.price * item.quantity}</div>
-      </div>
-    `).join('');
-
-    updateTotal();
-
-    // Add listeners to qty inputs
-    document.querySelectorAll('.qty-input').forEach(input => {
-      input.addEventListener('change', e => {
-        let val = parseInt(e.target.value);
-        if (isNaN(val) || val < 1) {
-          val = 1;
-          e.target.value = val;
-        }
-        const id = parseInt(e.target.getAttribute('data-id'));
-        const itemIndex = cart.findIndex(i => i.id === id);
-        if (itemIndex > -1) {
-          cart[itemIndex].quantity = val;
-          localStorage.setItem('cart', JSON.stringify(cart));
-          updateTotal();
-        }
-      });
+      `;
+      cartContainer.appendChild(div);
     });
+
+    totalContainer.textContent = 'Total: ₹' + total;
   }
-
-  function updateTotal() {
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    totalDiv.textContent = `Total Price: ₹${total}`;
-  }
-
-  // On form submit
-  document.getElementById('order-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (cart.length === 0) {
-      alert('Your cart is empty!');
-      return;
-    }
-
-    // Build order details
-    let orderDetails = cart.map(item => `${item.name} (${item.weight}) x ${item.quantity} = ₹${item.price * item.quantity}`).join('\n');
-
-    const name = e.target.name.value.trim();
-    const email = e.target.email.value.trim();
-    const address = e.target.address.value.trim();
-
-    if (!name || !email || !address) {
-      alert('Please fill all required fields.');
-      return;
-    }
-
-    // For demo: just show success and clear cart
-    alert(`Order placed!\n\nName: ${name}\nEmail: ${email}\nAddress: ${address}\n\nOrder:\n${orderDetails}`);
-
-    // Clear cart
-    localStorage.removeItem('cart');
-    cart = [];
-    renderCart();
-
-    // Hide form, show success message
-    e.target.style.display = 'none';
-    document.getElementById('order-success').style.display = 'block';
-  });
 
   renderCart();
 </script>
