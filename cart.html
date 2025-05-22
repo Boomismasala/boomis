@@ -3,107 +3,215 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Cart - Boomis Homemade Masala</title>
+  <title>Cart - Boomis Homemade Masala</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .cart-container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #fffaf5;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+    body {
+      font-family: 'Open Sans', sans-serif;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 0 10px;
     }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid #ddd;
+    h1 {
+      color: #8B4000;
+      text-align: center;
+      margin-bottom: 20px;
     }
-    .cart-item:last-child {
-      border-bottom: none;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
     }
-    .cart-item strong {
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f4e6d4;
       color: #8B4000;
     }
-    .total {
+    input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      text-align: center;
+    }
+    button.remove-btn {
+      background-color: #cc0000;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button.remove-btn:hover {
+      background-color: #ff3333;
+    }
+    #total-price {
+      font-weight: bold;
+      font-size: 1.2em;
       text-align: right;
-      font-size: 1.2rem;
-      margin-top: 20px;
+      margin-top: 15px;
+      color: #333;
+    }
+    #proceed-button {
+      display: block;
+      margin: 25px auto;
+      padding: 12px 30px;
+      background-color: #8B4000;
+      color: white;
+      border: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 25px;
+      text-align: center;
+      text-decoration: none;
+      width: fit-content;
+    }
+    #proceed-button:hover {
+      background-color: #a05200;
+    }
+    #empty-message {
+      text-align: center;
+      font-size: 1.1em;
+      color: #777;
+      margin-top: 40px;
+    }
+    a#back-to-shop {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #8B4000;
+      text-decoration: none;
       font-weight: bold;
     }
-    .checkout-btn {
-      margin-top: 20px;
-      background: #8B4000;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      float: right;
+    a#back-to-shop:hover {
+      text-decoration: underline;
     }
   </style>
-  <a href="index.html" id="back-button">⬅ Back to Products</a>
-
-<style>
-  #back-button {
-    display: inline-block;
-    margin: 20px;
-    padding: 10px 15px;
-    background-color: #8B4000;
-    color: white;
-    border-radius: 25px;
-    text-decoration: none;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
-  }
-
-  #back-button:hover {
-    background-color: #a05200;
-  }
-</style>
-
 </head>
 <body>
 
-<div class="cart-container">
-  <h1>Your Cart</h1>
-  <div id="cart-items"></div>
-  <div class="total" id="cart-total">Total: ₹0</div>
-  <button class="checkout-btn">Place Order</button>
+<a href="index.html" id="back-to-shop">← Continue Shopping</a>
+
+<h1>Your Cart</h1>
+
+<div id="cart-container">
+  <!-- Cart table will be injected here -->
 </div>
 
-<script>
-  function renderCart() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartContainer = document.getElementById('cart-items');
-    const totalContainer = document.getElementById('cart-total');
-    cartContainer.innerHTML = '';
-    let total = 0;
+<p id="total-price"></p>
 
+<button id="proceed-button" style="display:none;">Proceed to Place Order</button>
+
+<script>
+  const cartContainer = document.getElementById('cart-container');
+  const totalPriceElem = document.getElementById('total-price');
+  const proceedButton = document.getElementById('proceed-button');
+
+  // Load cart from localStorage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Render cart table
+  function renderCart() {
     if (cart.length === 0) {
-      cartContainer.innerHTML = '<p>Your cart is empty.</p>';
-      totalContainer.textContent = 'Total: ₹0';
+      cartContainer.innerHTML = '<p id="empty-message">Your cart is empty.</p>';
+      totalPriceElem.textContent = '';
+      proceedButton.style.display = 'none';
       return;
     }
 
-    cart.forEach(item => {
-      total += item.price * item.quantity;
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `
-        <div>
-          <strong>${item.name}</strong> - ${item.weight} x ${item.quantity}
-        </div>
-        <div>₹${item.price * item.quantity}</div>
+    let html = `
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Weight (g)</th>
+            <th>Price (₹)</th>
+            <th>Quantity</th>
+            <th>Total (₹)</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    cart.forEach((item, index) => {
+      const itemTotal = item.price * item.quantity;
+      html += `
+        <tr data-index="${index}">
+          <td>${item.name}</td>
+          <td>${item.weight}</td>
+          <td>${item.price.toFixed(2)}</td>
+          <td>
+            <input type="number" min="1" value="${item.quantity}" class="quantity-input" />
+          </td>
+          <td>${itemTotal.toFixed(2)}</td>
+          <td>
+            <button class="remove-btn">Remove</button>
+          </td>
+        </tr>
       `;
-      cartContainer.appendChild(div);
     });
 
-    totalContainer.textContent = 'Total: ₹' + total;
+    html += '</tbody></table>';
+
+    cartContainer.innerHTML = html;
+    updateTotalPrice();
+    proceedButton.style.display = 'block';
+
+    // Add event listeners for quantity changes
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    quantityInputs.forEach(input => {
+      input.addEventListener('change', (e) => {
+        const tr = e.target.closest('tr');
+        const idx = parseInt(tr.getAttribute('data-index'), 10);
+        let newQty = parseInt(e.target.value, 10);
+
+        if (isNaN(newQty) || newQty < 1) {
+          newQty = 1;
+          e.target.value = 1;
+        }
+
+        cart[idx].quantity = newQty;
+        saveCart();
+        renderCart();
+      });
+    });
+
+    // Add event listeners for remove buttons
+    const removeButtons = document.querySelectorAll('.remove-btn');
+    removeButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tr = e.target.closest('tr');
+        const idx = parseInt(tr.getAttribute('data-index'), 10);
+        cart.splice(idx, 1);
+        saveCart();
+        renderCart();
+      });
+    });
   }
 
+  function updateTotalPrice() {
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    totalPriceElem.textContent = `Total Price: ₹${total.toFixed(2)}`;
+  }
+
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  // Proceed to Place Order
+  proceedButton.addEventListener('click', () => {
+    if (cart.length === 0) {
+      alert('Your cart is empty!');
+      return;
+    }
+    window.location.href = 'place-order.html';
+  });
+
+  // Initial render
   renderCart();
 </script>
 
