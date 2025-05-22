@@ -40,13 +40,13 @@ nav a {
 }
 
 .hero {
-  background: url('Background.png') no-repeat center center/cover;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-align: center;
+      background: url('Background.png') no-repeat center center/cover;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
 }
 
 .hero h1 {
