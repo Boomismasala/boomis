@@ -1,4 +1,4 @@
-/* Base styles (keep your existing base styles here) */
+/* Base styles */
 body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
@@ -40,13 +40,13 @@ nav a {
 }
 
 .hero {
-      background: url('Background.png') no-repeat center center/cover;
-      height: 400px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
+  background: url('../images/Background.png') no-repeat center center/cover;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
 }
 
 .hero h1 {
@@ -129,8 +129,7 @@ iframe {
   height: 100%;
 }
 
-/* ====== Testimonials horizontal scroll styling ====== */
-
+/* ===== Testimonials Section ===== */
 #testimonials {
   padding: 40px 20px;
   background-color: #fffaf5;
@@ -145,34 +144,24 @@ iframe {
   font-size: 2rem;
 }
 
-/* Container for scrolling */
+/* Container with horizontal scrolling and animation */
 #testimonials .testimonials {
   display: flex;
   gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
+  overflow-x: hidden; /* hide scrollbar */
   padding-bottom: 10px;
-  scrollbar-width: thin;
-  scrollbar-color: #8B4000 transparent;
+  scrollbar-width: none; /* hide scrollbar Firefox */
+  -ms-overflow-style: none; /* hide scrollbar IE 10+ */
+  animation: scroll-testimonials 30s linear infinite;
 }
 
-/* Hide scrollbar for Webkit */
 #testimonials .testimonials::-webkit-scrollbar {
-  height: 8px;
-}
-
-#testimonials .testimonials::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-#testimonials .testimonials::-webkit-scrollbar-thumb {
-  background-color: #8B4000;
-  border-radius: 4px;
+  display: none; /* hide scrollbar Chrome, Safari */
 }
 
 /* Each testimonial card */
 #testimonials .card {
-  flex: 0 0 300px; /* fixed width cards */
+  flex: 0 0 300px;
   background: #f4f4f4;
   padding: 15px 20px;
   border-radius: 10px;
@@ -188,25 +177,4 @@ iframe {
 }
 
 #testimonials .card p {
-  margin: 0 0 10px 0;
-  font-style: italic;
-}
-
-#testimonials .card strong {
-  color: #8B4000;
-  font-weight: 700;
-  font-size: 1rem;
-  margin-top: auto;
-}
-
-/* Optional: Add smooth auto scroll animation - uncomment if you want automatic scrolling */
-/*
-@keyframes scroll-testimonials {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-#testimonials .testimonials {
-  animation: scroll-testimonials 30s linear infinite;
-}
-*/
+  margin: 
