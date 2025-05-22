@@ -3,126 +3,209 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Place Order - Boomis Homemade Masala</title>
+  <title>Place Order - Boomi's Homemade Masala</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #fff8f0;
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #8B4000;
+    }
+
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      display: block;
+      margin: 25px auto;
+      padding: 12px 30px;
+      background-color: #8B4000;
+      color: white;
+      border: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 25px;
+      text-align: center;
+    }
+
+    button:hover {
+      background-color: #a05200;
+    }
+
+    .cart-summary {
+      background: #fffef9;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .cart-summary table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .cart-summary th, .cart-summary td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .success-message {
+      text-align: center;
+      font-size: 1.2em;
+      color: green;
+      margin-top: 20px;
+    }
+
+    a#back-to-cart {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #8B4000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a#back-to-cart:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <a href="index.html" id="back-button">← Back to Shop</a>
-  <h1>Place Your Order</h1>
-</header>
+<a href="cart.html" id="back-to-cart">← Back to Cart</a>
 
-<section id="order-summary">
-  <h2>Your Cart Summary</h2>
-  <div id="cart-items"></div>
-  <p id="total-price"></p>
-</section>
+<h1>Place Your Order</h1>
 
-<section id="shipping-info">
-  <h2>Shipping Information</h2>
-  <form id="order-form">
-    <input type="text" id="name" placeholder="Your Name" required />
-    <input type="email" id="email" placeholder="Your Email" required />
-    <textarea id="address" placeholder="Your Shipping Address" rows="4" required></textarea>
-    <button type="submit">Place Order</button>
-  </form>
-</section>
+<form id="order-form">
+  <label for="name">Full Name</label>
+  <input type="text" id="name" required />
+
+  <label for="email">Email Address</label>
+  <input type="email" id="email" required />
+
+  <label for="phone">Phone Number</label>
+  <input type="tel" id="phone" required />
+
+  <label for="address">Delivery Address</label>
+  <textarea id="address" rows="4" required></textarea>
+
+  <div class="cart-summary" id="cart-summary">
+    <!-- Cart summary will be inserted here -->
+  </div>
+
+  <button type="submit">Confirm Order</button>
+</form>
+
+<div class="success-message" id="success-message" style="display:none;">
+  🎉 Thank you! Your order has been placed successfully.
+</div>
 
 <script>
-  // Load cart from localStorage and display in #cart-items
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const cartItemsContainer = document.getElementById('cart-items');
-  const totalPriceElem = document.getElementById('total-price');
+  const cartSummaryDiv = document.getElementById('cart-summary');
+  const form = document.getElementById('order-form');
+  const successMessage = document.getElementById('success-message');
 
-  function renderCart() {
-    if(cart.length === 0) {
-      cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
-      totalPriceElem.textContent = '';
+  function renderCartSummary() {
+    if (cart.length === 0) {
+      cartSummaryDiv.innerHTML = "<p>Your cart is empty.</p>";
       return;
     }
+
+    let html = `
+      <h2>Your Items</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Weight (g)</th>
+            <th>Qty</th>
+            <th>Price (₹)</th>
+            <th>Total (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
     let total = 0;
-    cartItemsContainer.innerHTML = '';
+
     cart.forEach(item => {
       const itemTotal = item.price * item.quantity;
       total += itemTotal;
-      const div = document.createElement('div');
-      div.textContent = `${item.name} (${item.weight}g) x ${item.quantity} = ₹${itemTotal}`;
-      cartItemsContainer.appendChild(div);
+      html += `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.weight}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price.toFixed(2)}</td>
+          <td>${itemTotal.toFixed(2)}</td>
+        </tr>
+      `;
     });
-    totalPriceElem.textContent = `Total Price: ₹${total}`;
+
+    html += `
+        </tbody>
+      </table>
+      <p style="text-align:right; font-weight:bold;">Total: ₹${total.toFixed(2)}</p>
+    `;
+
+    cartSummaryDiv.innerHTML = html;
   }
 
-  renderCart();
-
-  // Handle form submission
-  document.getElementById('order-form').addEventListener('submit', (e) => {
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    if(cart.length === 0) {
-      alert('Your cart is empty!');
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const address = document.getElementById("address").value.trim();
+
+    if (!name || !email || !phone || !address) {
+      alert("Please fill out all the fields.");
       return;
     }
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const address = document.getElementById('address').value.trim();
+    // Simulate sending order
+    console.log("Order placed:");
+    console.log({ name, email, phone, address, cart });
 
-    if(!name || !email || !address) {
-      alert('Please fill all the required fields.');
-      return;
-    }
+    // Clear cart
+    localStorage.removeItem("cart");
 
-    // Here you can send the order to your backend or API
-    alert(`Thank you, ${name}! Your order has been placed.`);
-
-    // Clear cart after order placed
-    localStorage.removeItem('cart');
-    window.location.href = 'index.html'; // Redirect back to shop
+    form.style.display = "none";
+    successMessage.style.display = "block";
   });
-</script>
 
-<style>
-  #back-button {
-    display: inline-block;
-    margin: 15px;
-    text-decoration: none;
-    font-weight: bold;
-    color: #8B4000;
-  }
-  #back-button:hover {
-    text-decoration: underline;
-  }
-  body {
-    font-family: 'Open Sans', sans-serif;
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
-  }
-  #order-summary div {
-    margin: 5px 0;
-  }
-  #total-price {
-    font-weight: bold;
-    margin-top: 15px;
-  }
-  form input, form textarea, form button {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    font-size: 1em;
-  }
-  form button {
-    background-color: #8B4000;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  form button:hover {
-    background-color: #a05200;
-  }
-</style>
+  renderCartSummary();
+</script>
 
 </body>
 </html>
