@@ -3,126 +3,165 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Boomi's Homemade Masala - Products</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background: #fff8f0;
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 20px;
-    }
-    h1 {
-      color: #8B4000;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .cart-button {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #8B4000;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 30px;
-      cursor: pointer;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-    .cart-count {
-      background: #ff3c00;
-      border-radius: 50%;
-      padding: 2px 8px;
-      font-weight: bold;
-      font-size: 14px;
-      min-width: 20px;
-      text-align: center;
-    }
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      width: 250px;
-      padding: 20px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card h2 {
-      margin-top: 0;
-      color: #8B4000;
-    }
-    .product-weight {
-      margin: 15px 0;
-      font-size: 14px;
-      padding: 6px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      width: 100%;
-    }
-    .add-to-cart-btn {
-      background-color: #8B4000;
-      border: none;
-      color: white;
-      padding: 12px 0;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-    }
-    .add-to-cart-btn:hover {
-      background-color: #a05200;
-    }
-  </style>
+  <title>Boomi's Homemade Masala</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<a href="cart.html" class="cart-button">
-  Cart <span id="cart-count" class="cart-count">0</span>
+<!-- Fixed Cart Button -->
+<a href="cart.html" id="cart-button" title="View Cart">
+  🛒 Cart (<span id="cart-count">0</span>)
 </a>
 
-<h1>Boomi's Homemade Masala</h1>
+<style>
+  #cart-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #8B4000;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 9999;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: background 0.3s ease;
+  }
+  #cart-button:hover {
+    background: #a05200;
+  }
+</style>
 
-<div class="products">
-  <!-- Example product card -->
-  <div class="card" data-id="masala1" data-name="Special Masala">
-    <h2>Special Masala</h2>
-    <select class="product-weight">
-      <option value="100" data-price="120">100g - ₹120</option>
-      <option value="250" data-price="280">250g - ₹280</option>
-      <option value="500" data-price="520">500g - ₹520</option>
-    </select>
-    <button class="add-to-cart-btn">Add to Cart</button>
+<!-- Fixed Place Order Button -->
+<a href="place-order.html" id="place-order-button" title="Place Order">
+  🛒 Place Order
+</a>
+
+<style>
+  #place-order-button {
+    position: fixed;
+    top: 70px;
+    left: 20px;
+    background: #006400;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 9999;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: background 0.3s ease;
+  }
+  #place-order-button:hover {
+    background: #008000;
+  }
+</style>
+
+<header>
+  <div class="brand-title">Boomis</div>
+  <div class="subtitle">Homemade Masala</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#products">Products</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Where flavour takes flight!</h1>
+</section>
+
+<section id="about">
+  <h2>About Us</h2>
+  <p>At Boomis Homemade Masala, we bring you age-old recipes packed with the freshest handpicked spices. Our masalas are ground with love, ensuring authentic flavors that enhance your meals.</p>
+</section>
+
+<section id="products">
+  <h2>Our Products</h2>
+  <div class="products">
+
+    <div class="card" data-id="1" data-name="Sambar Powder">
+      <img src="images/Sambar-Powder.png" alt="Sambar Powder"/>
+      <h3>Sambar Powder</h3>
+      <p>A perfect blend for traditional South Indian Sambar.</p>
+      <label>
+        Weight:
+        <select class="product-weight">
+          <option value="100" data-price="50">100g - ₹50</option>
+          <option value="250" data-price="120">250g - ₹120</option>
+          <option value="500" data-price="230">500g - ₹230</option>
+        </select>
+      </label>
+      <button class="add-to-cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="card" data-id="2" data-name="Chilly Powder">
+      <img src="images/Chill-Powder.png" alt="Chilly Powder"/>
+      <h3>Chilly Powder</h3>
+      <p>Perfect for spicy and flavorful recipes.</p>  
+      <label>
+        Weight:
+        <select class="product-weight">
+          <option value="100" data-price="50">100g - ₹50</option>
+          <option value="250" data-price="115">250g - ₹115</option>
+          <option value="500" data-price="220">500g - ₹220</option>
+        </select>
+      </label>   
+      <button class="add-to-cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="card" data-id="3" data-name="Idly Podi">
+      <img src="images/Idly-Powder.jpg" alt="Idly Podi"/>
+      <h3>Idly Podi</h3>
+      <p>Aromatic blend used with idly and dosa. Rich and authentic.</p>
+      <label>
+        Weight:
+        <select class="product-weight">
+          <option value="100" data-price="50">100g - ₹50</option>
+          <option value="250" data-price="110">250g - ₹110</option>
+          <option value="500" data-price="210">500g - ₹210</option>
+        </select>
+      </label>
+      <button class="add-to-cart-btn">Add to Cart</button>
+    </div>
+
   </div>
+</section>
 
-  <div class="card" data-id="masala2" data-name="Spicy Masala">
-    <h2>Spicy Masala</h2>
-    <select class="product-weight">
-      <option value="100" data-price="150">100g - ₹150</option>
-      <option value="250" data-price="350">250g - ₹350</option>
-      <option value="500" data-price="650">500g - ₹650</option>
-    </select>
-    <button class="add-to-cart-btn">Add to Cart</button>
+<section id="testimonials">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonials">
+    <div class="card">
+      <p>"Boomis masalas have transformed my cooking. The aroma is just divine!"</p>
+      <strong>– Meena R.</strong>
+    </div>
+    <div class="card">
+      <p>"Authentic taste and no preservatives. Highly recommend!"</p>
+      <strong>– Arjun V.</strong>
+    </div>
+    <div class="card">
+      <p>"Boomis masalas have transformed my cooking. The aroma is just divine!"</p>
+      <strong>– Meena R.</strong>
+    </div>
+    <div class="card">
+      <p>"Authentic taste and no preservatives. Highly recommend!"</p>
+      <strong>– Arjun V.</strong>
+    </div>
   </div>
+</section>
 
-  <!-- Add more products as needed -->
-</div>
+<section id="contact">
+  <h2>Contact Us</h2>
+  <form>
+    <input type="text" placeholder="Your Name" required />
+    <input type="email" placeholder="Your Email" required />
+    <textarea rows="5" placeholder="Your Message"></textarea>
+    <button type="submit">Send</button>
+  </form>
 
-<script src="script.js"></script>
-
-</body>
-</html>
+  <h2>Our Loca
