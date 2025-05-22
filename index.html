@@ -11,6 +11,44 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+<!-- Fixed Cart Button -->
+<a href="cart.html" id="cart-button" title="View Cart">
+  🛒 Cart (<span id="cart-count">0</span>)
+</a>
+
+<style>
+  #cart-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #8B4000;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 9999;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: background 0.3s ease;
+  }
+  #cart-button:hover {
+    background: #a05200;
+  }
+</style>
+
+<script>
+  // Update cart count from localStorage cart data
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // Sum quantities of all items in cart
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    document.getElementById('cart-count').textContent = count;
+  }
+
+  // Call it once page loads
+  document.addEventListener('DOMContentLoaded', updateCartCount);
+</script>
 
 <header>
   <div class="brand-title">Boomis</div>
