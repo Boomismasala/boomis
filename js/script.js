@@ -16,8 +16,8 @@
   function addToCart(product) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Check if product already in cart
-    const existingProduct = cart.find(item => item.id === product.id);
+    // Check if same product with same weight already in cart
+    const existingProduct = cart.find(item => item.id === product.id && item.weight === product.weight);
     if (existingProduct) {
       existingProduct.quantity += 1;
     } else {
@@ -32,7 +32,7 @@
     updateCartCount();
 
     // Feedback to user
-    alert(`${product.name} has been added to your cart!`);
+    alert(`${product.name} (${product.weight}) has been added to your cart!`);
   }
 
   // Initialize after DOM loads
@@ -45,12 +45,23 @@
       button.addEventListener('click', (event) => {
         const card = event.target.closest('.card');
 
-        // Read product info from data attributes
+        // Read selected weight and corresponding price
+        const weightSelect = card.querySelector('.product-weight');
+        let weight = '100g';
+        let price = parseFloat(card.getAttribute('data-price'));
+
+        if (weightSelect) {
+          const selectedOption = weightSelect.selectedOptions[0];
+          weight = selectedOption.value + 'g';
+          price = parseFloat(selectedOption.getAttribute('data-price'));
+        }
+
+        // Read other product info from data attributes
         const product = {
           id: card.getAttribute('data-id'),
           name: card.getAttribute('data-name'),
-          price: parseFloat(card.getAttribute('data-price')),
-          weight: card.getAttribute('data-weight')
+          price: price,
+          weight: weight
         };
 
         // Add product to cart
