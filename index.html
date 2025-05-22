@@ -156,12 +156,22 @@
         const card = this.closest('.card');
         const id = card.getAttribute('data-id');
         const name = card.getAttribute('data-name');
-        const price = parseInt(card.getAttribute('data-price'), 10);
-        const weight = card.getAttribute('data-weight');
+
+        // Get selected weight and price from <select>
+        const weightSelect = card.querySelector('.product-weight');
+        const selectedOption = weightSelect.options[weightSelect.selectedIndex];
+        const weight = selectedOption.value;
+        const price = parseFloat(selectedOption.dataset.price);
+
+        // Defensive check
+        if (!id || !name || !weight || isNaN(price)) {
+          alert('Error: Missing product info.');
+          return;
+        }
 
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        const index = cart.findIndex(item => item.id === id);
+        const index = cart.findIndex(item => item.id === id && item.weight === weight);
         if (index > -1) {
           cart[index].quantity += 1;
         } else {
@@ -170,11 +180,12 @@
 
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartCount();
-        alert(`${name} added to cart.`);
+        alert(`${name} (${weight}g) added to cart.`);
       });
     });
   });
 </script>
+
 
 </body>
 </html>
