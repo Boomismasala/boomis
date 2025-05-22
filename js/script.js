@@ -1,41 +1,57 @@
-<script>
+// Confirm JS is loaded
+console.log("Boomis Homemade Masala - script.js loaded");
 
-// Confirm JS loaded
-  console.log("Boomis Homemade Masala website loaded!");
+// Update cart count in the cart button
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const countElement = document.getElementById('cart-count');
+  if (countElement) {
+    countElement.textContent = count;
+  }
+}
 
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const count = cart.reduce((total, item) => total + item.quantity, 0);
-    const counter = document.getElementById('cart-count');
-    if (counter) counter.textContent = count;
+// Add product to cart
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Check if product (with same ID and weight) already in cart
+  const existingProduct = cart.find(item => item.id === product.id && item.weight === product.weight);
+  if (existingProduct) {
+    existingProduct.quantity += 1;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    updateCartCount();
+  // Save updated cart
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  alert(`${product.name} (${product.weight}g) has been added to your cart!`);
+}
 
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-      button.addEventListener('click', function () {
-        const card = this.closest('.card');
-        const id = card.getAttribute('data-id');
-        const name = card.getAttribute('data-name');
+// Initialize after DOM content loaded
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartCount();
 
-        const weightSelect = card.querySelector('.product-weight');
-        const weight = weightSelect.value;
-        const price = parseFloat(weightSelect.options[weightSelect.selectedIndex].dataset.price);
+  const buttons = document.querySelectorAll('.add-to-cart-btn');
+  buttons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      const card = event.target.closest('.card');
+      const id = card.getAttribute('data-id');
+      const name = card.getAttribute('data-name');
+      const weightSelect = card.querySelector('.product-weight');
+      const selectedOption = weightSelect.options[weightSelect.selectedIndex];
+      const weight = selectedOption.value;
+      const price = parseFloat(selectedOption.dataset.price);
 
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (!id || !name || !weight || isNaN(price)) {
+        alert("Error: Missing product information.");
+        return;
+      }
 
-        const index = cart.findIndex(item => item.id === id && item.weight === weight);
-        if (index > -1) {
-          cart[index].quantity += 1;
-        } else {
-          cart.push({ id, name, price, weight, quantity: 1 });
-        }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        alert(`${name} (${weight}) added to cart.`);
-      });
+      const product = { id, name, weight, price };
+      addToCart(product);
     });
   });
-</script>
+});
