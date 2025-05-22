@@ -4,61 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Boomi's Homemade Masala</title>
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
   <style>
-    header .brand-name {
-  text-align: center;
-  margin-bottom: 10px;
-  color: #fff;
-}
-
-header .brand-name h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.5em;   /* Big & bold */
-  font-weight: 700;
-  margin: 0;
-  letter-spacing: 2px;
-}
-
-header .brand-name p {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1em;    /* Smaller size */
-  font-weight: 400;
-  margin: 0;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  opacity: 0.8;      /* Slightly faded */
-}
-
     body {
       font-family: 'Open Sans', sans-serif;
       margin: 0;
       padding: 0;
       line-height: 1.6;
       color: #333;
-      background-color: #FAF3E0;
+      background-color: #fffaf5;
     }
 
     header {
-      background: #6B3E26;
+      background: #8B4000;
       color: #fff;
       padding: 20px 0;
       text-align: center;
     }
 
-    .brand {
+    .brand-title {
       font-family: 'Playfair Display', serif;
       font-size: 3em;
       margin: 0;
-      line-height: 1.2;
     }
 
-    .brand .subtitle {
-      font-size: 0.5em;
-      font-weight: normal;
-      font-style: italic;
-      display: block;
-      margin-top: 5px;
+    .subtitle {
+      font-size: 1em;
+      color: #ffdd99;
+      margin-top: -10px;
       letter-spacing: 1px;
     }
 
@@ -71,11 +47,6 @@ header .brand-name p {
       margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1em;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
     }
 
     .hero {
@@ -90,10 +61,9 @@ header .brand-name p {
 
     .hero h1 {
       font-size: 3em;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
       font-family: 'Playfair Display', serif;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 15px 30px;
-      border-radius: 10px;
     }
 
     section {
@@ -104,9 +74,7 @@ header .brand-name p {
 
     h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #6B3E26;
+      color: #8B4000;
     }
 
     .products, .testimonials {
@@ -117,7 +85,7 @@ header .brand-name p {
 
     .card {
       flex: 1 1 300px;
-      background: #fff;
+      background: #f4f4f4;
       padding: 20px;
       border-radius: 8px;
       display: flex;
@@ -125,12 +93,6 @@ header .brand-name p {
       align-items: center;
       text-align: center;
       box-sizing: border-box;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
     }
 
     .card img {
@@ -138,14 +100,6 @@ header .brand-name p {
       height: 200px;
       object-fit: cover;
       border-radius: 8px;
-      margin-bottom: 15px;
-    }
-
-    footer {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 15px 0;
     }
 
     form input, form textarea {
@@ -157,28 +111,40 @@ header .brand-name p {
     }
 
     form button {
-      background: #D2691E;
+      background: #8B4000;
       color: #fff;
       border: none;
       padding: 10px 20px;
       margin-top: 10px;
       border-radius: 5px;
       cursor: pointer;
-      font-weight: bold;
     }
 
-    form button:hover {
-      background: #b35717;
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.9em;
+    }
+
+    .map-container {
+      margin-top: 20px;
+      height: 300px;
+    }
+
+    iframe {
+      border: 0;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="brand-name">
-    <h1>Boomis</h1>
-    <p>Homemade Masala</p>
-  </div>
+  <div class="brand-title">Boomis</div>
+  <div class="subtitle">Homemade Masala</div>
   <nav>
     <a href="#about">About</a>
     <a href="#products">Products</a>
@@ -186,7 +152,6 @@ header .brand-name p {
     <a href="#contact">Contact</a>
   </nav>
 </header>
-
 
 <section class="hero">
   <h1>Pure. Natural.</h1>
@@ -208,12 +173,12 @@ header .brand-name p {
     <div class="card">
       <img src="Chill-Powder.png" alt="Chilly Powder"/>
       <h3>Chilly Powder</h3>
-      <p>Tangy, spicy mix for comforting Rasam recipes.</p>
+      <p>Perfect for spicy and flavorful recipes.</p>
     </div>
     <div class="card">
       <img src="Idly-Powder.jpg" alt="Idly Podi"/>
       <h3>Idly Podi</h3>
-      <p>Aromatic blend used in curries and gravies across India.</p>
+      <p>Aromatic blend used with idly and dosa. Rich and authentic.</p>
     </div>
   </div>
 </section>
@@ -240,6 +205,17 @@ header .brand-name p {
     <textarea rows="5" placeholder="Your Message"></textarea>
     <button type="submit">Send</button>
   </form>
+
+  <h2>Our Location</h2>
+  <p>Palakkad, Kerala, India</p>
+  <p>Email ID - help@boomis.in</p>
+  <div class="map-container">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.973050579332!2d80.25787831512598!3d13.043369417302906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526612e2f4b8b3%3A0xcab5f0e6d2061e98!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1613566927652!5m2!1sen!2sin"
+      allowfullscreen=""
+      loading="lazy">
+    </iframe>
+  </div>
 </section>
 
 <footer>
