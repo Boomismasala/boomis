@@ -2,71 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Boomi's Homemade Masala</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
 <header>
-  <div class="brand-title">Boomis</div>
-  <div class="subtitle">Homemade Masala</div>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#products">Products</a>
-    <a href="#testimonials">Testimonials</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <div class="container">
+    <div class="brand-title">Boomis</div>
+    <div class="subtitle">Homemade Masala</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
 <section class="hero">
-  <h1>Where flavour takes flight!</h1>
+  <div class="container">
+    <h1>Where flavour takes flight!</h1>
+  </div>
 </section>
 
-<section id="about">
+<section id="about" class="container">
   <h2>About Us</h2>
-  <p>At Boomis Homemade Masala, we bring you age-old recipes packed with the freshest handpicked spices. Our masalas are ground with love, ensuring authentic flavors that enhance your meals.</p>
+  <p>
+    At Boomis Homemade Masala, we bring you age-old recipes packed with the freshest handpicked spices.
+    Our masalas are ground with love, ensuring authentic flavors that enhance your meals.
+  </p>
 </section>
 
-<section id="products">
+<section id="products" class="container">
   <h2>Our Products</h2>
   <div class="products">
     <div class="card">
-      <img src="images/Sambar-Powder.png" alt="Sambar Powder"/>
+      <img src="images/Sambar-Powder.png" alt="Sambar Powder" />
       <h3>Sambar Powder</h3>
       <p>A perfect blend for traditional South Indian Sambar.</p>
     </div>
     <div class="card">
-      <img src="images/Chill-Powder.png" alt="Chilly Powder"/>
+      <img src="images/Chill-Powder.png" alt="Chilly Powder" />
       <h3>Chilly Powder</h3>
       <p>Perfect for spicy and flavorful recipes.</p>
     </div>
     <div class="card">
-      <img src="images/Idly-Powder.jpg" alt="Idly Podi"/>
+      <img src="images/Idly-Powder.jpg" alt="Idly Podi" />
       <h3>Idly Podi</h3>
       <p>Aromatic blend used with idly and dosa. Rich and authentic.</p>
     </div>
   </div>
 </section>
 
-<section id="testimonials">
+<section id="testimonials" class="container">
   <h2>What Our Customers Say</h2>
   <div class="testimonials">
-    <div class="card">
+    <div class="card testimonial-card">
       <p>"Boomis masalas have transformed my cooking. The aroma is just divine!"</p>
       <strong>– Meena R.</strong>
     </div>
-    <div class="card">
+    <div class="card testimonial-card">
       <p>"Authentic taste and no preservatives. Highly recommend!"</p>
       <strong>– Arjun V.</strong>
     </div>
   </div>
 </section>
 
-<section id="contact">
+<section id="contact" class="container">
   <h2>Contact Us</h2>
   <form>
     <input type="text" placeholder="Your Name" required />
@@ -83,13 +92,14 @@
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15677.013942941927!2d76.62946324009178!3d10.791887408048394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba86e0233221569%3A0x853df44a33499288!2sChunnambuthara%2C%20Vadakkanthara%2C%20Palakkad%2C%20Kerala!5e0!3m2!1sen!2sin!4v1747915746829!5m2!1sen!2sin"
       allowfullscreen=""
       loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
 </section>
 
 <footer>
-  <p>&copy; 2025 Boomis Homemade Masala. All rights reserved.</p>
+  <div class="container">
+    <p>&copy; 2025 Boomis Homemade Masala. All rights reserved.</p>
+  </div>
 </footer>
 
 <script src="js/script.js"></script>
