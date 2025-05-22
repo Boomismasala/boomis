@@ -6,177 +6,190 @@
   <title>Boomi's Homemade Masala</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Cart and Place Order Buttons */
+    #cart-button, #place-order-button {
+      position: fixed;
+      left: 20px;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 25px;
+      font-weight: bold;
+      text-decoration: none;
+      z-index: 9999;
+      font-family: 'Open Sans', sans-serif;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+    #cart-button {
+      top: 20px;
+      background: #8B4000;
+    }
+    #cart-button:hover {
+      background: #a05200;
+    }
+    #place-order-button {
+      top: 70px;
+      background: #006400;
+    }
+    #place-order-button:hover {
+      background: #008000;
+    }
+
+    /* Basic card styling */
+    .products {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      max-width: 220px;
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+      background: #fff8f0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .card h3 {
+      margin: 10px 0 5px;
+      font-family: 'Playfair Display', serif;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #555;
+      min-height: 50px;
+    }
+    .add-to-cart-btn {
+      margin-top: 10px;
+      background: #8B4000;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Open Sans', sans-serif;
+      transition: background 0.3s ease;
+    }
+    .add-to-cart-btn:hover {
+      background: #a05200;
+    }
+  </style>
 </head>
 <body>
 
-<!-- Fixed Cart Button -->
-<a href="cart.html" id="cart-button" title="View Cart">
-  🛒 Cart (<span id="cart-count">0</span>)
-</a>
+  <!-- Fixed Cart Button -->
+  <a href="cart.html" id="cart-button" title="View Cart">
+    🛒 Cart (<span id="cart-count">0</span>)
+  </a>
 
-<style>
-  #cart-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: #8B4000;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 25px;
-    font-weight: bold;
-    text-decoration: none;
-    z-index: 9999;
-    font-family: 'Open Sans', sans-serif;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    transition: background 0.3s ease;
-  }
-  #cart-button:hover {
-    background: #a05200;
-  }
-</style>
+  <!-- Fixed Place Order Button -->
+  <a href="place-order.html" id="place-order-button" title="Place Order">
+    🛒 Place Order
+  </a>
 
-<!-- Fixed Place Order Button -->
-<a href="place-order.html" id="place-order-button" title="Place Order">
-  🛒 Place Order
-</a>
+  <header>
+    <div class="brand-title">Boomis</div>
+    <div class="subtitle">Homemade Masala</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-<style>
-  #place-order-button {
-    position: fixed;
-    top: 70px;
-    left: 20px;
-    background: #006400;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 25px;
-    font-weight: bold;
-    text-decoration: none;
-    z-index: 9999;
-    font-family: 'Open Sans', sans-serif;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    transition: background 0.3s ease;
-  }
-  #place-order-button:hover {
-    background: #008000;
-  }
-</style>
+  <section class="hero">
+    <h1>Where flavour takes flight!</h1>
+  </section>
 
-<header>
-  <div class="brand-title">Boomis</div>
-  <div class="subtitle">Homemade Masala</div>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#products">Products</a>
-    <a href="#testimonials">Testimonials</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <section id="about">
+    <h2>About Us</h2>
+    <p>At Boomis Homemade Masala, we bring you age-old recipes packed with the freshest handpicked spices. Our masalas are ground with love, ensuring authentic flavors that enhance your meals.</p>
+  </section>
 
-<section class="hero">
-  <h1>Where flavour takes flight!</h1>
-</section>
+  <section id="products">
+    <h2>Our Products</h2>
+    <div class="products">
+      <div class="card" data-id="1" data-name="Sambar Powder" data-weight="100" data-price="50">
+        <img src="images/Sambar-Powder.png" alt="Sambar Powder" />
+        <h3>Sambar Powder</h3>
+        <p>A perfect blend for traditional South Indian Sambar.</p>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
 
-<section id="about">
-  <h2>About Us</h2>
-  <p>At Boomis Homemade Masala, we bring you age-old recipes packed with the freshest handpicked spices. Our masalas are ground with love, ensuring authentic flavors that enhance your meals.</p>
-</section>
+      <div class="card" data-id="2" data-name="Chilly Powder" data-weight="100" data-price="50">
+        <img src="images/Chill-Powder.png" alt="Chilly Powder" />
+        <h3>Chilly Powder</h3>
+        <p>Perfect for spicy and flavorful recipes.</p>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
 
-<section id="products">
-  <h2>Our Products</h2>
-  <div class="products">
-
-    <div class="card" data-id="1" data-name="Sambar Powder">
-      <img src="images/Sambar-Powder.png" alt="Sambar Powder"/>
-      <h3>Sambar Powder</h3>
-      <p>A perfect blend for traditional South Indian Sambar.</p>
-      <label>
-        Weight:
-        <select class="product-weight">
-          <option value="100" data-price="50">100g - ₹50</option>
-          <option value="250" data-price="120">250g - ₹120</option>
-          <option value="500" data-price="230">500g - ₹230</option>
-        </select>
-      </label>
-      <button class="add-to-cart-btn">Add to Cart</button>
+      <div class="card" data-id="3" data-name="Idly Podi" data-weight="100" data-price="50">
+        <img src="images/Idly-Powder.jpg" alt="Idly Podi" />
+        <h3>Idly Podi</h3>
+        <p>Aromatic blend used with idly and dosa. Rich and authentic.</p>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
     </div>
+  </section>
 
-    <div class="card" data-id="2" data-name="Chilly Powder">
-      <img src="images/Chill-Powder.png" alt="Chilly Powder"/>
-      <h3>Chilly Powder</h3>
-      <p>Perfect for spicy and flavorful recipes.</p>  
-      <label>
-        Weight:
-        <select class="product-weight">
-          <option value="100" data-price="50">100g - ₹50</option>
-          <option value="250" data-price="115">250g - ₹115</option>
-          <option value="500" data-price="220">500g - ₹220</option>
-        </select>
-      </label>   
-      <button class="add-to-cart-btn">Add to Cart</button>
+  <section id="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonials">
+      <div class="card">
+        <p>"Boomis masalas have transformed my cooking. The aroma is just divine!"</p>
+        <strong>– Meena R.</strong>
+      </div>
+      <div class="card">
+        <p>"Authentic taste and no preservatives. Highly recommend!"</p>
+        <strong>– Arjun V.</strong>
+      </div>
+      <div class="card">
+        <p>"Boomis masalas have transformed my cooking. The aroma is just divine!"</p>
+        <strong>– Meena R.</strong>
+      </div>
+      <div class="card">
+        <p>"Authentic taste and no preservatives. Highly recommend!"</p>
+        <strong>– Arjun V.</strong>
+      </div>
     </div>
+  </section>
 
-    <div class="card" data-id="3" data-name="Idly Podi">
-      <img src="images/Idly-Powder.jpg" alt="Idly Podi"/>
-      <h3>Idly Podi</h3>
-      <p>Aromatic blend used with idly and dosa. Rich and authentic.</p>
-      <label>
-        Weight:
-        <select class="product-weight">
-          <option value="100" data-price="50">100g - ₹50</option>
-          <option value="250" data-price="110">250g - ₹110</option>
-          <option value="500" data-price="210">500g - ₹210</option>
-        </select>
-      </label>
-      <button class="add-to-cart-btn">Add to Cart</button>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message"></textarea>
+      <button type="submit">Send</button>
+    </form>
+
+    <h2>Our Location</h2>
+    <p>Palakkad, Kerala, India</p>
+    <p>Email ID - help@boomis.in</p>
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15677.013942941927!2d76.62946324009178!3d10.791887408048394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba86e0233221569%3A0x853df44a33499288!2sChunnambuthara%2C%20Vadakkanthara%2C%20Palakkad%2C%20Kerala!5e0!3m2!1sen!2sin!4v1747915746829!5m2!1sen!2sin"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
     </div>
+  </section>
 
-  </div>
-</section>
+  <footer>
+    <p>&copy; 2025 Boomis Homemade Masala. All rights reserved.</p>
+  </footer>
 
-<section id="testimonials">
-  <h2>What Our Customers Say</h2>
-  <div class="testimonials">
-    <div class="card">
-      <p>"Boomis masalas have transformed my cooking. The aroma is just divine!"</p>
-      <strong>– Meena R.</strong>
-    </div>
-    <div class="card">
-      <p>"Authentic taste and no preservatives. Highly recommend!"</p>
-      <strong>– Arjun V.</strong>
-    </div>
-    <div class="card">
-      <p>"Boomis masalas have transformed my cooking. The aroma is just divine!"</p>
-      <strong>– Meena R.</strong>
-    </div>
-    <div class="card">
-      <p>"Authentic taste and no preservatives. Highly recommend!"</p>
-      <strong>– Arjun V.</strong>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <h2>Contact Us</h2>
-  <form>
-    <input type="text" placeholder="Your Name" required />
-    <input type="email" placeholder="Your Email" required />
-    <textarea rows="5" placeholder="Your Message"></textarea>
-    <button type="submit">Send</button>
-  </form>
-
-  <h2>Our Location</h2>
-  <p>Palakkad, Kerala, India</p>
-  <p>Email ID - help@boomis.in</p>
-  <div class="map-container">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15677.013942941927!2d76.62946324009178!3d10.791887408048394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba86e0233221569%3A0x853df44a33499288!2sChunnambuthara%2C%20Vadakkanthara%2C%20Palakkad%2C%20Kerala!5e0!3m2!1sen!2sin!4v1747915746829!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
-</section>
-
-<footer>
-  <p>&copy; 2025 Boomis Homemade Masala. All rights reserved.</p>
-</footer>
-
-<script src="js/script.js"></script>
-
+  <script src="js/script.js"></script>
 </body>
 </html>
