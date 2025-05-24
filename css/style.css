@@ -8867,6 +8867,12 @@ h1, h2, h3, h4, h5,
       appearance: none;
       text-transform: uppercase;
       letter-spacing: 2px; }
+.product .img-prod img {
+  height: 220px;          /* Force consistent height */
+  width: 100%;            /* Make sure it fills horizontally */
+  object-fit: cover;      /* Crop and center image to avoid stretching */
+}
+
 
 .ftco-cart button i {
   color: #82ae46; }
